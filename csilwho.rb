@@ -2,13 +2,14 @@
 
 require 'yaml'
 require 'date'
+require 'timeout'
 
 class Host
 
   attr_accessor :current_user
   @@suffix = '.cs.ucsb.edu'
   @@invalid_users = ['(unknown)', 'root']
-  @@options = '-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+  @@options = '-o StrictHostKeyChecking=no'
 
   def initialize(name)
     @name = name
