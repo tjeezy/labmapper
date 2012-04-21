@@ -50,7 +50,7 @@ end
 class CsilPoller
 
   # TODO add to these
-  @@hostnames = [:cartman, :elroy, :dagwood, :calvin]
+  @@hostnames = [:cartman, :elroy, :dagwood, :calvin, :bart, :marge, :dilbert]
 
   @@hosts = []
   @@hostnames.each do |hostname|
