@@ -35,7 +35,13 @@ class Host
 
   def ssh(cmd)
     # TODO check status (machine may be down)
-    `ssh #{@@options} #{@name}#{@@suffix} #{cmd}`
+    begin 
+      Timeout::timeout(10) {
+        `ssh #{@@options} #{@name}#{@@suffix} #{cmd}`
+      }
+    rescue 
+      ""
+    end
   end
 
 end
