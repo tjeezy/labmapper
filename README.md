@@ -9,9 +9,7 @@ Installation
 ------------
 
     $ git clone https://tjeezy@github.com/tjeezy/csilwho.git
-    $ rvm use 1.9.2
-    $ rvm gemset create csilwho
-    $ rvm gemset use csilwho
+    $ rvm use 1.9.3@csilwho --create
     $ bundle install                # grab dependencies
     $ ./csilwho.rb                  # creates socket.yaml
     $ ./web.rb                      # http://localhost:4567
