@@ -3,6 +3,7 @@
 require 'yaml'
 require 'date'
 require 'timeout'
+require 'parallel'
 
 class Host
 
