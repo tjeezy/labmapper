@@ -8,6 +8,7 @@ class Host
   attr_accessor :current_user
   @@suffix = '.cs.ucsb.edu'
   @@invalid_users = ['(unknown)', 'root']
+  @@options = '-o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
 
   def initialize(name)
     @name = name
@@ -33,7 +34,7 @@ class Host
 
   def ssh(cmd)
     # TODO check status (machine may be down)
-    `ssh #{@name}#{@@suffix} #{cmd}`
+    `ssh #{@@options} #{@name}#{@@suffix} #{cmd}`
   end
 
 end
