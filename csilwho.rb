@@ -58,9 +58,11 @@ class CsilPoller
   end
 
   def self.poll
-    @@hosts.each do |host|
+    
+    @@hosts = Parallel.map(@@hosts) do |host|
       host.update_current_user
       host.debug
+      host
     end
   end
 
