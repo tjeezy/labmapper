@@ -1,0 +1,30 @@
+;000000000|.row.laptops
+;         |.row.empty
+;1234 5678|.row
+;9abc defg|.row
+;         |.row.empty
+;hijk lmno|.row
+;pqrs tuvw|.row
+;         |.row.empty
+;xyzA BCDE|.row
+;FGHI JKLM|.row
+
+*|v.machine
+0|.unnamed
+1|^#cartman
+2|^#elroy
+3|^#dagwood
+4|^#calvin
+5|^#snoopy
+6|^#blondie
+7|^#brain
+8|^#shaggy
+9|#dudley
+a|#lupin
+b|#scooby
+c|#popey
+d|#kenny
+e|#optimus
+f|#bullwinkle
+g|^#wacko
+h-zA-M|.unnamed

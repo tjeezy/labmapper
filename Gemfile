@@ -1,4 +1,5 @@
 source :rubygems
 
 gem 'sinatra'
-gem 'parallel'
+gem 'haml'
+gem 'json'
