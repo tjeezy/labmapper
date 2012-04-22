@@ -2,10 +2,12 @@
 
 require 'yaml'
 require 'date'
+require 'json'
 
 class Host
 
   attr_accessor :current_user
+  attr_accessor :name
   @@suffix = '.cs.ucsb.edu'
   @@invalid_users = ['(unknown)', 'root']
 
@@ -27,6 +29,13 @@ class Host
 
   def debug
     puts "#{@name}: #{@current_user}"
+  end
+
+  def to_json(*a)
+    {
+      name: @name,
+      current_user: @current_user
+    }.to_json(*a)
   end
 
   private
@@ -57,12 +66,12 @@ class HostPoller
 
   def self.serialize(file)
     File.open(file, 'w') do |f|
-      f.puts YAML::dump(DateTime.now)
-      f.puts ''
+      map = {timestamp: DateTime.now, hosts: {}}
+
       @@hosts.each do |host|
-        f.puts YAML::dump(host)
-        f.puts ''
+        map[:hosts][host.name] = host.current_user
       end
+      f.puts map.to_json
     end
   end
 
@@ -70,5 +79,5 @@ end
 
 if $0 == __FILE__
   HostPoller.poll
-  HostPoller.serialize('socket.yaml')
+  HostPoller.serialize('socket.json')
 end

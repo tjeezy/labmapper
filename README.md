@@ -9,7 +9,7 @@ Installation
 ------------
 
     $ git clone https://tjeezy@github.com/tjeezy/labmapper.git
-    $ rvm use 1.9.2@labmapper --create  # local ruby+gems container
+    $ rvm use 1.9.3@labmapper --create  # local ruby+gems container
     $ bundle install                    # grab dependencies
     $ ./labmapper.rb                    # creates socket.yaml
     $ ./web.rb                          # http://localhost:4567
