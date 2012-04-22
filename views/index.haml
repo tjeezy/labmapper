@@ -1,0 +1,16 @@
+!!! 5
+%html{:lang => "en"}
+  %head
+    %title= "CSIL Pollr"
+    %link{:rel => "stylesheet", :type => "text/css", :href => "css/app.css"}
+  %body
+    #status_box
+    #header
+      %h1= "CSIL @ UCSB"
+    = table
+    #footer
+      %p.fleft
+        %a{:href => "https://github.com/tjeezy/csilwho", :title => "View source on github"}= "View source on github"
+      %p.fright.timestamp= timestamp
+    %script{:src => "./js/jquery-1.7.2.min.js"}
+    %script{:src => "./js/app.js"}

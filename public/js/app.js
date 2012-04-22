@@ -1,10 +1,10 @@
 $(function() {
   $status_box = $("#status_box");
   $(".machine").each(function() {
-    $(this).html("<img src=\"machine.png\" width=\"100%\" height=\"40\" alt=\"" + $(this)[0].id + "\" />")
+    $(this).html("<img src=\"img/machine.png\" width=\"100%\" height=\"40\" alt=\"" + $(this)[0].id + "\" />")
   });
-  $(".flipped .machine").each(function() {
-    $(this).html("<img src=\"flipped-machine.png\" width=\"40\" alt=\"" + $(this)[0].id + "\" />");
+  $(".up.machine").each(function() {
+    $(this).html("<img src=\"img/flipped-machine.png\" width=\"40\" alt=\"" + $(this)[0].id + "\" />");
   });
   $("table").bind("mousemove", function(e) {
     $target = $(e.target);

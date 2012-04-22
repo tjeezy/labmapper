@@ -2,11 +2,12 @@
 
 require 'yaml'
 require 'date'
-require 'timeout'
+require 'json'
 
 class Host
 
   attr_accessor :current_user
+  attr_accessor :name
   @@suffix = '.cs.ucsb.edu'
   @@invalid_users = ['(unknown)', 'root']
   @@options = '-o StrictHostKeyChecking=no'
@@ -31,6 +32,13 @@ class Host
     puts "#{@name}: #{@current_user}"
   end
 
+  def to_json(*a)
+    {
+      name: @name,
+      current_user: @current_user
+    }.to_json(*a)
+  end
+
   private
 
   def ssh(cmd)
@@ -46,7 +54,7 @@ class Host
 
 end
 
-class CsilPoller
+class HostPoller
 
   # TODO add to these
   @@hostnames = [:cartman, :elroy, :dagwood, :calvin]
@@ -65,18 +73,18 @@ class CsilPoller
 
   def self.serialize(file)
     File.open(file, 'w') do |f|
-      f.puts YAML::dump(DateTime.now)
-      f.puts ''
+      map = {timestamp: DateTime.now, hosts: {}}
+
       @@hosts.each do |host|
-        f.puts YAML::dump(host)
-        f.puts ''
+        map[:hosts][host.name] = host.current_user
       end
+      f.puts map.to_json
     end
   end
 
 end
 
 if $0 == __FILE__
-  CsilPoller.poll
-  CsilPoller.serialize('socket.yaml')
+  HostPoller.poll
+  HostPoller.serialize('socket.json')
 end

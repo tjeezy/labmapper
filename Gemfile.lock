@@ -1,6 +1,8 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    haml (3.1.4)
+    json (1.6.6)
     rack (1.4.1)
     rack-protection (1.2.0)
       rack
@@ -14,4 +16,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  haml
+  json
   sinatra
