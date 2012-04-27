@@ -2,5 +2,8 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../environment')
 
-Labmapper::HostPoller.poll
+opts = {}
+opts[:in_threads] = 0 if ARGV[0] == 'serial'
+
+Labmapper::HostPoller.poll(opts)
 Labmapper::HostPoller.serialize('../socket.json')

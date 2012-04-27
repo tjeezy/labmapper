@@ -1,6 +1,9 @@
 module Labmapper
   class HostPoller
 
+    # TODO add option (in Config?) to specify
+    # path to ssh key for Host#send_key
+
     @@hostnames = Labmapper::Config.hosts
 
     @@hosts = []
@@ -8,8 +11,10 @@ module Labmapper
       @@hosts << Host.new(hostname)
     end
 
-    def self.poll
-      @@hosts.map(&:poll)
+    def self.poll(opts={})
+      Parallel.map(@@hosts, opts) do |host|
+        host.poll
+      end
     end
 
     def self.serialize(file)

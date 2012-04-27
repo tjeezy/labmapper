@@ -4,20 +4,22 @@ module Labmapper
     attr_accessor :name, :user, :nossh, :uptime
     @@suffix = '.cs.ucsb.edu' # TODO grab from labrc
     @@invalid_users = ['(unknown)', 'root'] # TODO fix
+    # build out ssh options
+    @@options = '-o ConnectTimeout=5 ' # in seconds
+    @@options += '-o UserKnownHostsFile=/dev/null '
+    # doesn't check RSA fingerprint
+    @@options += '-o StrictHostKeyChecking=no '
 
-    def initialize(name)
+    def initialize(name, key='~/.ssh/id_rsa.pub')
       @name = name
       @nossh = false
       @user = @uptime = nil
+      @key = key
     end
 
     # TODO improve this -- place ssh keys before polling
     def send_key
-      options  = '-o ConnectTimeout=5 ' # in seconds
-      # doesn't check RSA fingerprint
-      options += '-o UserKnownHostsFile=/dev/null '
-      options += '-o StrictHostKeyChecking=no '
-      res = `ssh-copy-id #{options}-i ~/.ssh/id_rsa.pub #{@name}#{@@suffix}`
+      res = `ssh-copy-id #{@@options}-i #{@key} #{@name}#{@@suffix}`
       puts "Could not send key to #{@name}" unless $?.success?
     end
 
@@ -49,11 +51,7 @@ module Labmapper
     private
 
     def ssh(cmds=['who'])
-      options  = '-o ConnectTimeout=5 ' # in seconds
-      # doesn't check RSA fingerprint
-      options += '-o UserKnownHostsFile=/dev/null '
-      options += '-o StrictHostKeyChecking=no '
-      out = `ssh -q #{options}#{@name}#{@@suffix} '#{cmds.join(' ; ')}'`
+      out = `ssh -q #{@@options}#{@name}#{@@suffix} '#{cmds.join(' ; ')}'`
       # if ssh returned with non-0 exit status
       $?.success? ? out : nil
     end
