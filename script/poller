@@ -19,6 +19,11 @@ OptionParser.new do |options|
   end
 end.parse!
 
+if (ARGV[0] == 'serial') {
+  opts[:in_threads] = 0
+  ARGV.shift
+}
+
 file = ARGV[0] ? ARGV[0] : '../socket.json'
 
 Labmapper::HostPoller.poll(opts)
