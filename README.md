@@ -61,8 +61,8 @@ A two-computer lab -- romantic.
 Usage
 -----
 
-    $ ./bin/poller                      # initial poll (creates socket.json)
-    $ ./bin/web                         # http://localhost:4567
+    $ ./script/poller                      # initial poll (creates socket.json)
+    $ ./script/web                         # http://localhost:4567
 
 Then create a CRON job to run ./bin/poller every [n] minutes.
 
