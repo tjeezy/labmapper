@@ -21,7 +21,6 @@ get '/' do
 end
 
 # TODO remove this or obfuscate user on host? (privacy issue)
-# TODO either way, i propose the route to be /hosts.json
-get '/json' do
+get '/hosts.json' do
   send_file '../socket.json'
 end
