@@ -2,7 +2,6 @@ require 'haml'
 require 'date'
 require 'json'
 require 'parallel'
-require 'trollop'
 require 'sinatra' unless defined?(Sinatra)
 
 configure do
