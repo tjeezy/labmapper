@@ -2,31 +2,29 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../environment')
 
-# TODO this is horrible
-version = `git describe`
-version = $?.success? ? version.strip : ''
+require 'optparse'
 
-cmdopts = Trollop::options do
-  version "Labmapper#poller #{version} (c) 2012 TJ Koblentz"
-  opt :serial, "SSH hosts one after the other", default: false, short: '-s'
-  opt :threads, "Use threads to parallelize", type: :int, short: '-t'
-  opt :processes, "Use processes to parallelize", type: :int, short: '-p'
+opts = {in_threads:50}
+
+OptionParser.new do |options|
+  options.banner = "Usage #{$0} [options]"
+
+  options.on("-s", "Run serially") do 
+    opts[:in_threads] = 0
+  end
+
+  options.on_tail("-h", "--help", "Show this message") do
+    puts options
+    exit
+  end
+end.parse!
+
+if (ARGV[0] == 'serial')
+  opts[:in_threads] = 0
+  ARGV.shift
 end
 
-if (cmdopts[:threads] || cmdopts[:processes]) && cmdopts[:serial]
-  Trollop::die :serial, "must not be set if threads/processes specified"
-end
-
-opts = {}
-
-if cmdopts[:serial]
-  opts[:in_theads] = opts[:in_processes] = 0
-elsif cmdopts[:threads] || cmdopts[:processes]
-  opts[:in_threads] = cmdopts[:threads]
-  opts[:in_processes] = cmdopts[:processes]
-else
-  opts[:in_processes] = Labmapper::Config.hosts.size
-end
+file = ARGV[0] ? ARGV[0] : '../socket.json'
 
 Labmapper::HostPoller.poll(opts)
-Labmapper::HostPoller.serialize('../socket.json')
+Labmapper::HostPoller.serialize(file)
